@@ -55,13 +55,26 @@ audio {
 
 /*RESPOMSIVE MOBILE AND TABLETS*/
 @media (max-width: 768px) {
+    .tutorial-list{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 10px;
+    }
+    h1{
+        font-size: 22px;
+    }
     .tutorial-item{
         flex-direction: column;
         align-items: flex-start;
+        justify-content: center;
     }
     .titulo, .descripcion, audio {
         width: 100%;
         margin-bottom: 10px;
     }
-    
+    .titulo{
+        font-weight: bolder;
+    }
 } 
