@@ -47,6 +47,7 @@ img{
   }
 
   img{
+    display: none;
     height: auto;
     width: 90%;
     margin-top: 10px;
