@@ -77,6 +77,7 @@ audio {
     }
     .titulo{
         font-weight: bolder;
+        text-align: center;
     }
     .descripcion{
         margin-bottom: 4px;
