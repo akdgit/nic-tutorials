@@ -61,6 +61,7 @@ audio {
         justify-content: center;
         width: 100%;
         padding: 10px;
+        margin-bottom: 5px;
     }
     h1{
         font-size: 22px;
@@ -76,5 +77,11 @@ audio {
     }
     .titulo{
         font-weight: bolder;
+    }
+    .descripcion{
+        margin-bottom: 4px;
+    }
+    .descargar{
+        margin-bottom: 4px;
     }
 } 
