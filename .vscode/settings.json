@@ -1,0 +1,15 @@
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": ["*"],
+        "settings": {
+          "foreground": "#FFFFFF"  // texto blanco
+        }
+      }
+    ]
+  },
+  "workbench.colorCustomizations": {
+    "editor.background": "#000000"  // fondo negro
+  }
+}

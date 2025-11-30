@@ -53,6 +53,19 @@ audio {
   background-color: #1e40af;
 }
 
+.material-symbols-outlined {
+    font-size: 24px;
+    cursor: pointer;
+    height: 36px;
+    width: 36px;
+    border-radius: 18px;
+    padding: 2px;
+    margin: 5px;
+    background-color: #2563eb;
+    color: white;
+    font-weight: bold;
+}
+
 /*RESPOMSIVE MOBILE AND TABLETS*/
 @media (max-width: 768px) {
     .tutorial-list{
