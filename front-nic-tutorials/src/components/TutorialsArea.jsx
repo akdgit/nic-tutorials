@@ -10,7 +10,7 @@ function TutorialsArea({ nuevoTutorial, adminMode = false }) {
 
   
   useEffect(() => {
-    fetch("http://localhost:3000/api/tutorials")
+    fetch("https://nic-audio-tutorials.onrender.com/api/tutorials")
       .then((res) => res.json())
       .then((data) => setTutoriales(data))
       .catch((err) => console.error("Error al cargar:", err));
@@ -44,7 +44,8 @@ function TutorialsArea({ nuevoTutorial, adminMode = false }) {
 
   const handleUpdate = (tutorial) => {
     setEditando(tutorial);
-    alert(`Actualizar tutorial: ${tutoriales[index].titulo}`);
+    alert(`Actualizar tutorial: ${tutorial.titulo}`);
+    //alert(`Actualizar tutorial: ${tutoriales[index].titulo}`);
   };
 
   /*const handleDelete = (index) => {
@@ -60,7 +61,7 @@ const handleDelete = async (id) => {
   if (!confirmDelete) return;
 
   try {
-    const res = await fetch(`http://localhost:3000/api/tutorials/${id}`, {
+    const res = await fetch(`https://nic-audio-tutorials.onrender.com/api/tutorials/${id}`, {
       method: "DELETE"
     });
 
@@ -91,7 +92,7 @@ const handleDelete = async (id) => {
             controls
             tabIndex="0"
             ref={index === tutoriales.length - 1 ? lastAudioRef : null}
-            src={`http://localhost:3000${t.media}`}
+            src={`https://nic-audio-tutorials.onrender.com${t.media}`}
           ></audio>
 
           {adminMode ? (
@@ -113,7 +114,7 @@ const handleDelete = async (id) => {
             </div>
           ) : (
             <a
-              href={`http://localhost:3000${t.media}`}
+              href={`https://nic-audio-tutorials.onrender.com${t.media}`}
               download
               className="descargar"
               aria-label={`Descargar ${t.titulo}`}
