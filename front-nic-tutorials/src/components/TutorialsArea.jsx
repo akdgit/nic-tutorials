@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./styles/TutorialsArea.css";
 import EditTutorialForm from "./EditTutorialForm";
+import { useNavigate } from "react-router-dom";
 
 const speak = (text) => {
   if (!("speechSynthesis" in window)) return;
@@ -15,16 +16,16 @@ const speak = (text) => {
 };
 
 
-function TutorialsArea({ nuevoTutorial, adminMode = false }) {
+function TutorialsArea({ nuevoTutorial }) {
   const [tutoriales, setTutoriales] = useState([]);
   const [filtrados, setFiltrados] = useState([]);
   const [editando, setEditando] = useState(null);
   const [busqueda, setBusqueda] = useState("");
-  //const [adminMode, setAdminMode] = useState(false);
+  const [adminMode, setAdminMode] = useState(false);
   const firstResultRef = useRef(null);
   const endRef = useRef(null);
   const lastAudioRef = useRef(null);
-
+  const navigate = useNavigate();
   // 🔹 Cargar la lista desde Render
   useEffect(() => {
     fetch("https://nic-audio-tutorials.onrender.com/api/tutorials")
@@ -86,6 +87,7 @@ const ejecutarBusqueda = () => {
   // 🔐 CLAVE ADMIN
   if (termino === "clave555") {
     setBusqueda("");
+    navigate('/manager');
     setAdminMode(true);
 
     speak("Modo administración activo");
