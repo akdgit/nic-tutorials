@@ -16,12 +16,11 @@ const speak = (text) => {
 };
 
 
-function TutorialsArea({ nuevoTutorial }) {
+function TutorialsArea({ nuevoTutorial, adminMode = false }) {
   const [tutoriales, setTutoriales] = useState([]);
   const [filtrados, setFiltrados] = useState([]);
   const [editando, setEditando] = useState(null);
   const [busqueda, setBusqueda] = useState("");
-  const [adminMode, setAdminMode] = useState(false);
   const firstResultRef = useRef(null);
   const endRef = useRef(null);
   const lastAudioRef = useRef(null);
@@ -88,7 +87,7 @@ const ejecutarBusqueda = () => {
   if (termino === "clave555") {
     setBusqueda("");
     navigate('/manager');
-    setAdminMode(true);
+    //setAdminMode(true);
 
     speak("Modo administración activo");
 
