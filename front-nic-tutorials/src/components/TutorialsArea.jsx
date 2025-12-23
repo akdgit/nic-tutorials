@@ -176,6 +176,7 @@ const handleKeyDown = (e) => {
         <button
           onClick={ejecutarBusqueda}
           aria-label="Ejecutar búsqueda"
+          className="boton-buscar"
         >
           Buscar
         </button>
