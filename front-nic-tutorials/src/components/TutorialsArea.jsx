@@ -248,16 +248,21 @@ const handleKeyDown = (e) => {
       <div ref={endRef}></div>
 
       {editando && (
-        <EditTutorialForm
-          tutorial={editando}
-          onClose={() => setEditando(null)}
-          onSave={(updated) =>
-            setTutoriales((prev) =>
-              prev.map((t) => (t.id === updated.id ? updated : t))
-            )
-          }
-        />
-      )}
+          <EditTutorialForm
+            tutorial={editando}
+            onClose={() => setEditando(null)}
+            onSave={(updated) => {
+              setTutoriales((prev) =>
+                prev.map((t) => (t.id === updated.id ? updated : t))
+              );
+
+              setFiltrados((prev) =>
+                prev.map((t) => (t.id === updated.id ? updated : t))
+              );
+            }}
+          />
+        )}
+
     </div>
   );
 }
