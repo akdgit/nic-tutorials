@@ -1,6 +1,18 @@
 import React, { useState } from "react";
 import "./styles/EditTutorialForm.css";
 
+const speak = (text) => {
+  if (!("speechSynthesis" in window)) return;
+
+  const msg = new SpeechSynthesisUtterance(text);
+  msg.lang = "es-ES";
+  msg.rate = 1;
+  msg.pitch = 1;
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(msg);
+};
+
 function EditTutorialForm({ tutorial, onClose, onSave }) {
   const [titulo, setTitulo] = useState(tutorial.titulo);
   const [descripcion, setDescripcion] = useState(tutorial.descripcion);
@@ -22,7 +34,9 @@ function EditTutorialForm({ tutorial, onClose, onSave }) {
     const data = await res.json();
     if (res.ok) {
       onSave(data); // actualiza en lista
-      onClose();    // cierra modal
+      onClose();
+      alert("Tutorial actualizado correctamente");
+      speak("Tutorial actualizado correctamente");
     } else {
       alert("Error al actualizar");
     }

@@ -83,8 +83,8 @@ function TutorialsArea({ nuevoTutorial, adminMode = false }) {
 const ejecutarBusqueda = () => {
   const termino = busqueda.trim().toLowerCase();
 
-  // 🔐 CLAVE ADMIN
-  if (termino === "clave555") {
+  //  CLAVE ADMIN
+  if (termino === "soyadmin") {
     setBusqueda("");
     navigate('/manager');
     //setAdminMode(true);
@@ -108,6 +108,12 @@ const ejecutarBusqueda = () => {
     t.titulo.toLowerCase().includes(termino) ||
     t.descripcion.toLowerCase().includes(termino)
   );
+
+  if (resultados.length === 0) {
+    alert("No se encontraron resultados");
+    speak("No se encontraron resultados");
+    return;
+  };
 
   setFiltrados(resultados);
 
@@ -143,6 +149,9 @@ const handleKeyDown = (e) => {
       if (!res.ok) {
         alert("Error al eliminar en el servidor");
         return;
+      }else {
+        alert("Tutorial eliminado correctamente");
+        speak("Tutorial eliminado");
       }
 
       setTutoriales(prev => prev.filter(t => t.id !== id));
