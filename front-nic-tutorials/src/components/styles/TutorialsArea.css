@@ -118,6 +118,7 @@ audio {
     }
 
     .boton-buscar{
+        display:block;
         width: 40%;
         height: 50px;
         margin: 10px;
