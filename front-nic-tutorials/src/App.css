@@ -37,12 +37,12 @@ img{
     align-items: center;
     justify-content: center;
     height: auto;
-    width: 100%a;
+    width: 100%;
   }
 
   .description{
     font-size: 20px;
-    width: 90%;
+    width: 95%;
     padding: 10px;
   }
 
