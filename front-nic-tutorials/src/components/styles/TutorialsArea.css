@@ -103,6 +103,25 @@ audio {
     h1{
         font-size: 22px;
     }
+
+    .search-box{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .buscador{
+        width: 90%;
+        margin: 10px;
+    }
+
+    .boton-buscar{
+        width: 40%;
+        height: 50px;
+        margin: 10px;
+    }
+
     .tutorial-item{
         flex-direction: column;
         align-items: center;
@@ -117,9 +136,9 @@ audio {
         text-align: center;
     }
     .descripcion{
-        margin-bottom: 4px;
+        margin-bottom: 14px;
     }
     .descargar{
-        margin-bottom: 6px;
+        margin-bottom: 10px;
     }
 } 
