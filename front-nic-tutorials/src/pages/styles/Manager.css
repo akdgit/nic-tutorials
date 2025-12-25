@@ -21,3 +21,19 @@
     cursor: pointer;
     margin-bottom: 15px;
 }
+
+
+/*RESPOMSIVE MOBILE AND TABLETS*/
+@media (max-width: 768px) {
+    .admin{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        width: 100%;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+}
