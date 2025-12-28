@@ -75,3 +75,19 @@ button {
 button.cancelar {
   background: #d9534f;
 }
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .archivo-input {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+  
+}
