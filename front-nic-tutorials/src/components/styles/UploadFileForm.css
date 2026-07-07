@@ -75,23 +75,3 @@ button {
 button:hover {
   background-color: #218838;
 }
-
-
-
-/*RESPONSIVE MOBILE DEVICES*/
-@media (max-width: 768px) {
-  form {
-    width: 90%;
-    padding: 15px;
-    border: none;
-    gap: 20px;
-  }
-
-  .input-container {
-    width: 90%;
-  }
-
-  button {
-    width: 50%;
-  }
-}

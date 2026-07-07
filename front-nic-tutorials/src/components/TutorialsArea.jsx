@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./styles/TutorialsArea.css";
 import EditTutorialForm from "./EditTutorialForm";
-import { useNavigate } from "react-router-dom";
 
 const speak = (text) => {
   if (!("speechSynthesis" in window)) return;
@@ -21,10 +20,11 @@ function TutorialsArea({ nuevoTutorial, adminMode = false }) {
   const [filtrados, setFiltrados] = useState([]);
   const [editando, setEditando] = useState(null);
   const [busqueda, setBusqueda] = useState("");
+  const [adminMode, setAdminMode] = useState(false);
   const firstResultRef = useRef(null);
   const endRef = useRef(null);
   const lastAudioRef = useRef(null);
-  const navigate = useNavigate();
+
   // 🔹 Cargar la lista desde Render
   useEffect(() => {
     fetch("https://nic-audio-tutorials.onrender.com/api/tutorials")
@@ -83,11 +83,10 @@ function TutorialsArea({ nuevoTutorial, adminMode = false }) {
 const ejecutarBusqueda = () => {
   const termino = busqueda.trim().toLowerCase();
 
-  //  CLAVE ADMIN
-  if (termino === "soyadmin") {
+  // 🔐 CLAVE ADMIN
+  if (termino === "clave555") {
     setBusqueda("");
-    navigate('/manager');
-    //setAdminMode(true);
+    setAdminMode(true);
 
     speak("Modo administración activo");
 
@@ -108,12 +107,6 @@ const ejecutarBusqueda = () => {
     t.titulo.toLowerCase().includes(termino) ||
     t.descripcion.toLowerCase().includes(termino)
   );
-
-  if (resultados.length === 0) {
-    alert("No se encontraron resultados");
-    speak("No se encontraron resultados");
-    return;
-  };
 
   setFiltrados(resultados);
 
@@ -149,9 +142,6 @@ const handleKeyDown = (e) => {
       if (!res.ok) {
         alert("Error al eliminar en el servidor");
         return;
-      }else {
-        alert("Tutorial eliminado correctamente");
-        speak("Tutorial eliminado");
       }
 
       setTutoriales(prev => prev.filter(t => t.id !== id));
@@ -165,7 +155,7 @@ const handleKeyDown = (e) => {
 
   const lista = filtrados.length ? filtrados : tutoriales;
 
-
+  //render tutorials
   return (
     <div className="tutorial-list">
       <h1 tabIndex="0">Lista de tutoriales</h1>
@@ -185,7 +175,6 @@ const handleKeyDown = (e) => {
         <button
           onClick={ejecutarBusqueda}
           aria-label="Ejecutar búsqueda"
-          className="boton-buscar"
         >
           Buscar
         </button>
@@ -211,7 +200,7 @@ const handleKeyDown = (e) => {
             controls
             tabIndex="0"
             ref={index === filtrados.length - 1 ? lastAudioRef : null}
-            src={`https://nic-audio-tutorials.onrender.com${t.media}`}
+            src={t.media}
           ></audio>
 
           {adminMode ? (
@@ -233,7 +222,7 @@ const handleKeyDown = (e) => {
             </div>
           ) : (
             <a
-              href={`https://nic-audio-tutorials.onrender.com${t.media}`}
+              href={t.media}
               download
               className="descargar"
               aria-label={`Descargar ${t.titulo}`}
@@ -248,21 +237,16 @@ const handleKeyDown = (e) => {
       <div ref={endRef}></div>
 
       {editando && (
-          <EditTutorialForm
-            tutorial={editando}
-            onClose={() => setEditando(null)}
-            onSave={(updated) => {
-              setTutoriales((prev) =>
-                prev.map((t) => (t.id === updated.id ? updated : t))
-              );
-
-              setFiltrados((prev) =>
-                prev.map((t) => (t.id === updated.id ? updated : t))
-              );
-            }}
-          />
-        )}
-
+        <EditTutorialForm
+          tutorial={editando}
+          onClose={() => setEditando(null)}
+          onSave={(updated) =>
+            setTutoriales((prev) =>
+              prev.map((t) => (t.id === updated.id ? updated : t))
+            )
+          }
+        />
+      )}
     </div>
   );
 }

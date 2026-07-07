@@ -37,14 +37,13 @@ img{
     align-items: center;
     justify-content: center;
     height: auto;
-    width: 100%;
+    width: 100vw;
   }
 
   .description{
     font-size: 20px;
-    width: 95%;
+    width: 90%;
     padding: 10px;
-    margin-top: 20px;
   }
 
   img{

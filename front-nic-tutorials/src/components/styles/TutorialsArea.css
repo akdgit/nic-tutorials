@@ -67,28 +67,13 @@ audio {
 }
 
 .buscador{
-    width: 700px;
+    width: 300px;
     height: 35px;
     border: 2px solid #2563eb;
     border-radius: 8px;
     padding: 5px 10px;
     font-size: 16px;
-    margin: 15px;
-
-}
-
-.boton-buscar{
-    display: none;
-    height: 45px;
-    width: 80px;
-    border: none;
-    border-radius: 8px;
-    padding: 5px 15px;
-    font-size: 16px;
-    margin-left: 10px;
-    background-color: #2563eb;
-    color: white;
-    cursor: pointer;
+    margin-bottom: 15px;
 }
 
 /*RESPOMSIVE MOBILE AND TABLETS*/
@@ -104,26 +89,6 @@ audio {
     h1{
         font-size: 22px;
     }
-
-    .search-box{
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .buscador{
-        width: 90%;
-        margin: 10px;
-    }
-
-    .boton-buscar{
-        display:block;
-        width: 40%;
-        height: 50px;
-        margin: 10px;
-    }
-
     .tutorial-item{
         flex-direction: column;
         align-items: center;
@@ -138,9 +103,9 @@ audio {
         text-align: center;
     }
     .descripcion{
-        margin-bottom: 14px;
+        margin-bottom: 4px;
     }
     .descargar{
-        margin-bottom: 10px;
+        margin-bottom: 6px;
     }
 } 
