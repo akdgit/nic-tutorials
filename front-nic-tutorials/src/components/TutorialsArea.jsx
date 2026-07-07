@@ -27,7 +27,7 @@ function TutorialsArea({ nuevoTutorial, adminMode = false }) {
 
   // 🔹 Cargar la lista desde Render
   useEffect(() => {
-    fetch("https://nic-audio-tutorials.onrender.com/api/tutorials")
+    fetch("https://nic-tutorials.onrender.com/api/tutorials")
       .then((res) => res.json())
       .then((data) => {
         setTutoriales(data);
