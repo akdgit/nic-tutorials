@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import ima from './components/images/tutorial.png'
-import {useNavigate} from 'react-router-dom'
+//import {useNavigate} from 'react-router-dom'
 import './App.css'
 import TutorialsArea from './components/TutorialsArea'
 
@@ -9,12 +9,12 @@ import TutorialsArea from './components/TutorialsArea'
 function App() {
   
 
-  const navigate = useNavigate();
+  /*const navigate = useNavigate();
   const handleKeyDown = (e) => {
     if (e.ctrlKey && e.key.toLowerCase() === 'm') {
       e.preventDefault();
       navigate('/manager');
-    }
+    }*/
   };
 
   return (

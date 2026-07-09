@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./styles/TutorialsArea.css";
 import EditTutorialForm from "./EditTutorialForm";
+import { useNavigate } from "react-router-dom";
 
 const speak = (text) => {
   if (!("speechSynthesis" in window)) return;
@@ -25,6 +26,7 @@ function TutorialsArea({ nuevoTutorial, adminMode = false }) {
   const firstResultRef = useRef(null);
   const endRef = useRef(null);
   const lastAudioRef = useRef(null);
+  const navigate = useNavigate();
   const isAdmin = adminMode || adminUnlocked;
 
   // 🔹 Cargar la lista desde Render
@@ -97,11 +99,24 @@ const ejecutarBusqueda = () => {
       document.getElementById("admin-panel")?.focus();
     }, 300);
 
-    return;
+    return;*/
   }
 
   // 🔎 BÚSQUEDA NORMAL
-  if (!termino) {
+  
+  if (termino === "soyadmin") {
+  setBusqueda("");
+
+  speak("Modo administración activo");
+
+  setTimeout(() => {
+    navigate("/manager");
+  }, 500);
+
+  return;
+}
+
+  /*if (!termino) {
     setFiltrados(tutoriales);
     return;
   }
