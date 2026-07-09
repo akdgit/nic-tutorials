@@ -15,256 +15,282 @@ const speak = (text) => {
   window.speechSynthesis.speak(msg);
 };
 
+function TutorialsArea({ nuevoTutorial = null, adminMode = false }) {
+  const navigate = useNavigate();
 
-function TutorialsArea({ nuevoTutorial, adminMode = false }) {
   const [tutoriales, setTutoriales] = useState([]);
   const [filtrados, setFiltrados] = useState([]);
-  const [editando, setEditando] = useState(null);
   const [busqueda, setBusqueda] = useState("");
-  //const [adminMode, setAdminMode] = useState(false);
-  const [adminUnlocked, setAdminUnlocked] = useState(false);
+  const [editando, setEditando] = useState(null);
+
   const firstResultRef = useRef(null);
   const endRef = useRef(null);
   const lastAudioRef = useRef(null);
-  const navigate = useNavigate();
-  const isAdmin = adminMode || adminUnlocked;
 
-  // 🔹 Cargar la lista desde Render
+  // ============================
+  // Cargar tutoriales
+  // ============================
+
   useEffect(() => {
-    fetch("https://nic-audio-tutorials.onrender.com/api/tutorials")
-      .then((res) => res.json())
-      .then((data) => {
+    const cargarTutoriales = async () => {
+      try {
+        const res = await fetch(
+          "https://nic-audio-tutorials.onrender.com/api/tutorials"
+        );
+
+        const data = await res.json();
+
         setTutoriales(data);
         setFiltrados(data);
-      })
-      .catch((err) => console.error("Error al cargar:", err));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    cargarTutoriales();
   }, []);
 
-  // 🔹 Añadir el nuevo tutorial sin repetir
+  // ============================
+  // Agregar nuevo tutorial
+  // ============================
+
   useEffect(() => {
-    if (nuevoTutorial) {
-      setTutoriales((prev) => {
-        const existe = prev.find(t => t.id === nuevoTutorial.id);
-        return existe ? prev : [...prev, nuevoTutorial];
+    if (!nuevoTutorial) return;
+
+    setTutoriales((prev) => {
+      const existe = prev.some((t) => t.id === nuevoTutorial.id);
+      return existe ? prev : [...prev, nuevoTutorial];
+    });
+
+    setFiltrados((prev) => {
+      const existe = prev.some((t) => t.id === nuevoTutorial.id);
+      return existe ? prev : [...prev, nuevoTutorial];
+    });
+
+    setTimeout(() => {
+      endRef.current?.scrollIntoView({
+        behavior: "smooth",
       });
 
-      setFiltrados((prev) => {
-        const existe = prev.find(t => t.id === nuevoTutorial.id);
-        return existe ? prev : [...prev, nuevoTutorial];
-      });
+      lastAudioRef.current?.focus();
+    }, 300);
 
-      setTimeout(() => {
-        endRef.current?.scrollIntoView({ behavior: "smooth" });
-        lastAudioRef.current?.focus();
-      }, 300);
-    }
   }, [nuevoTutorial]);
 
-  // 🔹 Función de búsqueda al presionar ENTER
-  /*const buscar = (e) => {
-    if (e.key !== "Enter") return;
+  // ============================
+  // Buscar
+  // ============================
+
+  const ejecutarBusqueda = () => {
 
     const termino = busqueda.trim().toLowerCase();
 
-    if (termino === "") {
+    if (termino === "soyadmin") {
+
+      setBusqueda("");
+
+      speak("Modo administración activo");
+
+      setTimeout(() => {
+        navigate("/manager");
+      }, 500);
+
+      return;
+    }
+
+    if (!termino) {
       setFiltrados(tutoriales);
       return;
     }
 
-    const resultados = tutoriales.filter(t =>
+    const resultados = tutoriales.filter((t) =>
       t.titulo.toLowerCase().includes(termino) ||
       t.descripcion.toLowerCase().includes(termino)
     );
 
     setFiltrados(resultados);
 
-    // Enfocar el primer elemento encontrado
     setTimeout(() => {
       firstResultRef.current?.focus();
-    }, 150);
-  }; */
-
-const ejecutarBusqueda = () => {
-  const termino = busqueda.trim().toLowerCase();
-
-  // 🔐 CLAVE ADMIN
-  if (termino === "soyadmin") {
-    setBusqueda("");
-    setAdminUnlocked(true);
-    //setAdminMode(true);
-
-    speak("Modo administración activo");
-
-    setTimeout(() => {
-      document.getElementById("admin-panel")?.focus();
-    }, 300);
-
-    return;*/
-  }
-
-  // 🔎 BÚSQUEDA NORMAL
-  
-  if (termino === "soyadmin") {
-  setBusqueda("");
-
-  speak("Modo administración activo");
-
-  setTimeout(() => {
-    navigate("/manager");
-  }, 500);
-
-  return;
-}
-
-  /*if (!termino) {
-    setFiltrados(tutoriales);
-    return;
-  }
-
-  const resultados = tutoriales.filter(t =>
-    t.titulo.toLowerCase().includes(termino) ||
-    t.descripcion.toLowerCase().includes(termino)
-  );
-
-  setFiltrados(resultados);
-
-  setTimeout(() => {
-    firstResultRef.current?.focus();
-  }, 200);
-};
-
-const handleKeyDown = (e) => {
-  if (e.key === "Enter") {
-    ejecutarBusqueda();
-  }
-};
-
-
-
-  // 🔹 Abrir formulario de edición
-  const handleUpdate = (tutorial) => {
-    setEditando(tutorial);
-    alert(`Actualizar tutorial: ${tutorial.titulo}`);
+    }, 200);
   };
 
-  // 🔹 Eliminar tutorial
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      ejecutarBusqueda();
+    }
+  };
+
+  // ============================
+  // Editar
+  // ============================
+
+  const handleUpdate = (tutorial) => {
+    setEditando(tutorial);
+  };
+
+  // ============================
+  // Eliminar
+  // ============================
+
   const handleDelete = async (id) => {
-    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este tutorial?");
-    if (!confirmDelete) return;
+
+    if (!confirm("¿Eliminar este tutorial?")) return;
 
     try {
-      const res = await fetch(`https://nic-audio-tutorials.onrender.com/api/tutorials/${id}`, {
-        method: "DELETE"
-      });
+
+      const res = await fetch(
+        `https://nic-audio-tutorials.onrender.com/api/tutorials/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!res.ok) {
-        alert("Error al eliminar en el servidor");
+        alert("No se pudo eliminar.");
         return;
       }
 
-      setTutoriales(prev => prev.filter(t => t.id !== id));
-      setFiltrados(prev => prev.filter(t => t.id !== id));
+      setTutoriales((prev) => prev.filter((t) => t.id !== id));
+      setFiltrados((prev) => prev.filter((t) => t.id !== id));
 
     } catch (err) {
-      console.error("Error eliminando:", err);
-      alert("No se pudo conectar con el servidor");
+
+      console.error(err);
+
+      alert("Error de conexión.");
+
     }
   };
 
   const lista = filtrados.length ? filtrados : tutoriales;
 
-  //render tutorials
   return (
     <div className="tutorial-list">
+
       <h1 tabIndex="0">Lista de tutoriales</h1>
 
-      {/* 🔍 BUSCADOR */}
       <div className="search-box">
+
         <input
           type="text"
           className="buscador"
           value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-          onKeyDown={handleKeyDown}
           placeholder="Buscar tutorial..."
           aria-label="Buscar tutorial"
+          onChange={(e) => setBusqueda(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
 
         <button
           onClick={ejecutarBusqueda}
-          aria-label="Ejecutar búsqueda"
+          aria-label="Buscar"
         >
           Buscar
         </button>
+
       </div>
 
-
       {lista.map((t, index) => (
+
         <div
           key={t.id}
           className="tutorial-item"
-          ref={index === 0 ? firstResultRef : null}
         >
-          <p 
-            className="titulo" 
-            tabIndex="0" 
+
+          <p
+            className="titulo"
+            tabIndex="0"
             ref={index === 0 ? firstResultRef : null}
           >
             {t.titulo}
           </p>
-          <p className="descripcion" tabIndex="0">{t.descripcion}</p>
+
+          <p
+            className="descripcion"
+            tabIndex="0"
+          >
+            {t.descripcion}
+          </p>
 
           <audio
             controls
-            tabIndex="0"
-            ref={index === filtrados.length - 1 ? lastAudioRef : null}
             src={t.media}
-          ></audio>
+            tabIndex="0"
+            ref={index === lista.length - 1 ? lastAudioRef : null}
+          />
 
-          {isAdmin ? (
+          {adminMode ? (
+
             <div className="admin-buttons">
+
               <button
-                onClick={() => handleUpdate(t)}
-                aria-label="Actualizar Registro"
                 className="material-symbols-outlined"
+                aria-label="Editar tutorial"
+                onClick={() => handleUpdate(t)}
               >
                 edit_square
               </button>
+
               <button
-                onClick={() => handleDelete(t.id)}
-                aria-label="Eliminar Registro"
                 className="material-symbols-outlined"
+                aria-label="Eliminar tutorial"
+                onClick={() => handleDelete(t.id)}
               >
                 delete
               </button>
+
             </div>
+
           ) : (
+
             <a
               href={t.media}
               download
               className="descargar"
               aria-label={`Descargar ${t.titulo}`}
-              tabIndex="0"
             >
               Descargar
             </a>
+
           )}
+
         </div>
+
       ))}
 
       <div ref={endRef}></div>
 
       {editando && (
+
         <EditTutorialForm
           tutorial={editando}
           onClose={() => setEditando(null)}
-          onSave={(updated) =>
+          onSave={(tutorialActualizado) => {
+
             setTutoriales((prev) =>
-              prev.map((t) => (t.id === updated.id ? updated : t))
-            )
-          }
+              prev.map((t) =>
+                t.id === tutorialActualizado.id
+                  ? tutorialActualizado
+                  : t
+              )
+            );
+
+            setFiltrados((prev) =>
+              prev.map((t) =>
+                t.id === tutorialActualizado.id
+                  ? tutorialActualizado
+                  : t
+              )
+            );
+
+            setEditando(null);
+
+          }}
         />
+
       )}
+
     </div>
   );
 }
