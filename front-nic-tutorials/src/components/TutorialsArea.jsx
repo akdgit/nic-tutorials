@@ -15,7 +15,7 @@ const speak = (text) => {
 };
 
 
-function TutorialsArea({ nuevoTutorial, adminMode = false }) {
+function TutorialsArea({ nuevoTutorial }) {
   const [tutoriales, setTutoriales] = useState([]);
   const [filtrados, setFiltrados] = useState([]);
   const [editando, setEditando] = useState(null);
@@ -27,7 +27,7 @@ function TutorialsArea({ nuevoTutorial, adminMode = false }) {
 
   // 🔹 Cargar la lista desde Render
   useEffect(() => {
-    fetch("https://nic-tutorials.onrender.com/api/tutorials")
+    fetch("https://nic-audio-tutorials.onrender.com/api/tutorials")
       .then((res) => res.json())
       .then((data) => {
         setTutoriales(data);
