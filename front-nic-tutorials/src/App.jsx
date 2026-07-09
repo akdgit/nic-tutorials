@@ -29,7 +29,7 @@ function App() {
         </div>
         <footer>
           <p tabIndex="0">© 2025 NIC-Tutorials. Todos los derechos reservados.</p>
-          <button tabIndex="0" aria-label='fin' onKeyDown={handleKeyDown}></button>
+          <button tabIndex="0" aria-label='fin'></button>
         </footer>
       </div>
     </>
