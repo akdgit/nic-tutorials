@@ -15,15 +15,17 @@ const speak = (text) => {
 };
 
 
-function TutorialsArea({ nuevoTutorial }) {
+function TutorialsArea({ nuevoTutorial, adminMode = false }) {
   const [tutoriales, setTutoriales] = useState([]);
   const [filtrados, setFiltrados] = useState([]);
   const [editando, setEditando] = useState(null);
   const [busqueda, setBusqueda] = useState("");
-  const [adminMode, setAdminMode] = useState(false);
+  //const [adminMode, setAdminMode] = useState(false);
+  const [adminUnlocked, setAdminUnlocked] = useState(false);
   const firstResultRef = useRef(null);
   const endRef = useRef(null);
   const lastAudioRef = useRef(null);
+  const isAdmin = adminMode || adminUnlocked;
 
   // 🔹 Cargar la lista desde Render
   useEffect(() => {
@@ -84,9 +86,10 @@ const ejecutarBusqueda = () => {
   const termino = busqueda.trim().toLowerCase();
 
   // 🔐 CLAVE ADMIN
-  if (termino === "clave555") {
+  if (termino === "soyadmin") {
     setBusqueda("");
-    setAdminMode(true);
+    setAdminUnlocked(true);
+    //setAdminMode(true);
 
     speak("Modo administración activo");
 
@@ -203,7 +206,7 @@ const handleKeyDown = (e) => {
             src={t.media}
           ></audio>
 
-          {adminMode ? (
+          {isAdmin ? (
             <div className="admin-buttons">
               <button
                 onClick={() => handleUpdate(t)}
