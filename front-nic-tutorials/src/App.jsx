@@ -21,7 +21,7 @@ function App() {
     <>
       <div className='App'>
         <p className='description' tabIndex="0">
-          Escucha y descarga tutoriales dirgidos a personas con discapacidad visual en formato de audio, para que puedas realizar distintos procesos en tus dispositivos de forma rápida y accesible.
+          Escucha y descarga audio-tutoriales dirigidos a personas con discapacidad visual en formato de audio, para que puedas realizar distintos procesos en tus dispositivos de forma rápida y accesible.
         </p>
         <img src= { ima }/>
         <div className='list-tutorial'>
