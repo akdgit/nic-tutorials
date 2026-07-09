@@ -67,7 +67,7 @@ audio {
 }
 
 .buscador{
-    width: 300px;
+    width: 400px;
     height: 35px;
     border: 2px solid #2563eb;
     border-radius: 8px;
@@ -83,6 +83,20 @@ audio {
     justify-content: center;
     margin-bottom: 15px;
 }
+
+.botonbuscar{
+    width: 100px;
+    height: 35px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 /*RESPOMSIVE MOBILE AND TABLETS*/
 @media (max-width: 768px) {
     .tutorial-list{

@@ -185,6 +185,7 @@ function TutorialsArea({ nuevoTutorial = null, adminMode = false }) {
         <button
           onClick={ejecutarBusqueda}
           aria-label="Buscar"
+          className="botonbuscar"
         >
           Buscar
         </button>
