@@ -15,7 +15,7 @@ function App() {
       e.preventDefault();
       navigate('/manager');
     }*/
-  };
+
 
   return (
     <>
@@ -36,4 +36,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
