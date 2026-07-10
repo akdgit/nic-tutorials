@@ -145,7 +145,7 @@ function TutorialsArea({ nuevoTutorial = null, adminMode = false }) {
           method: "DELETE",
         }
       );
-
+        speak("Tutorial eliminado");
       if (!res.ok) {
         alert("No se pudo eliminar.");
         return;
