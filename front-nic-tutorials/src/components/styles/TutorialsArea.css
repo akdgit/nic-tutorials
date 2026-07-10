@@ -67,13 +67,14 @@ audio {
 }
 
 .buscador{
-    width: 400px;
+    width: 500px;
     height: 35px;
     border: 2px solid #2563eb;
     border-radius: 8px;
     padding: 5px 10px;
     font-size: 16px;
     margin-bottom: 15px;
+    margin-top: 9px;
 }
 
 .search-box{
@@ -82,7 +83,6 @@ audio {
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
-    margin-top: 9px;
 }
 
 .botonbuscar{
