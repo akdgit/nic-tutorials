@@ -291,7 +291,9 @@ function TutorialsArea({ nuevoTutorial = null, adminMode = false }) {
         />
 
       )}
-
+          <button className="botonvolver" onClick={() => setEditando(null)}>
+            Volver
+          </button>
     </div>
   );
 }

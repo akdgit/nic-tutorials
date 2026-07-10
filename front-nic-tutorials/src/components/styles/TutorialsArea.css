@@ -86,7 +86,20 @@ audio {
 
 .botonbuscar{
     width: 100px;
-    height: 35px;
+    height: 40px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+botonvolver{
+    width: 100px;
+    height: 40px;
     background-color: #2563eb;
     color: white;
     border: none;
