@@ -145,11 +145,13 @@ function TutorialsArea({ nuevoTutorial = null, adminMode = false }) {
           method: "DELETE",
         }
       );
-        speak("Tutorial eliminado");
+        
       if (!res.ok) {
         alert("No se pudo eliminar.");
         return;
       }
+
+      speak("Tutorial eliminado");
 
       setTutoriales((prev) => prev.filter((t) => t.id !== id));
       setFiltrados((prev) => prev.filter((t) => t.id !== id));
