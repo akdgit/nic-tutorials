@@ -162,24 +162,7 @@ function TutorialsArea({ nuevoTutorial = null, adminMode = false }) {
 
     }
   };
-
-  const handleVolver = () => {
-  if (!("speechSynthesis" in window)) {
-    navigate("/");
-    return;
-  }
-
-  window.speechSynthesis.cancel();
-
-  const msg = new SpeechSynthesisUtterance(
-    "Modo administrador desactivado"
-  );
-
-  msg.lang = "es-ES";
-  msg.onend = () => navigate("/");
-
-  window.speechSynthesis.speak(msg);
-};
+  
 
   const lista = filtrados.length ? filtrados : tutoriales;
 
@@ -309,13 +292,7 @@ function TutorialsArea({ nuevoTutorial = null, adminMode = false }) {
         />
 
       )}
-          <button
-  className="botonvolver"
-  onClick={handleVolver}
-  aria-label="Volver a la página principal"
->
-  Volver
-</button>
+          
     </div>
   );
 }
